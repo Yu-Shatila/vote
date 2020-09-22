@@ -6,9 +6,7 @@ import lombok.*;
  * @author xxy
  * @date 2020-08-28 - 16:38
  */
-@Getter
-@Setter
-@ToString
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class type {
