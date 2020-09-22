@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>注册</title>
+  <div th:replace="~{test.html::#css}"></div>
+  <div th:replace="~{test.html::#js}"></div>
+  <script type="text/javascript">
+        function bl() {
+            const pwd = $("[name='upwd']").val();
+            const rpwd = $("[name='rupwd']").val();
+            if(pwd!=""&&rpwd!=""){
+              if(pwd!=rpwd){
+                $(".error").text("两次输入的密码不一致");
+                $("[name='submit']").attr("disabled","disabled");
+              }else{
+                $(".error").text("");
+                $("[name='submit']").removeAttr("disabled");
+              }
+            }
+
+        }
+  </script>
+
+<body>
+<div th:replace="~{test.html::/div.wrap}"></div>
+<div class="wrap" id="navbar">
+  <div class="search"><!--
+		<form method="get" action="index.html">
+			<input type="text" name="keywords" class="input-text" /><input type="submit" name="submit" class="input-button" value="" />
+		</form>
+	-->
+	</div>
+</div>
+<div class="box" id="register">
+  <h2>新用户注册</h2>
+  <div class="content">
+    <form  th:action="@{/userSave}" method="post">
+      <dl>
+        <dt>用户名：</dt>
+        <dd><input name="uname" class="input-text" id="username"  type="text" required/></dd>
+        <dt>密码：</dt>
+        <dd><input name="upwd" class="input-text" id="password" type="password" onblur="bl()" required/></dd>
+        <dt>确认密码：</dt>
+        <dd><input name="rupwd" class="input-text" id="repass" type="password" onblur="bl()" required/></dd>
+        <dt></dt>
+        <dd><input name="submit" class="input-button"  disabled  type="submit" /></dd>
+      </dl>
+    </form>
+      <div class="error"></div>
+      <div class="wrap" id="footer">北大青鸟 © 版权所有 </div>
+  </div>
+</div>
+</body>
+</html>

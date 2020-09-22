@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+    <div th:replace="~{test.html::#css}"></div>
+  <div th:replace="~{test.html::#js}"></div>
+  <script type="text/javascript">
+        $(function () {
+              $("#myform").submit(function () {
+                  let uname = $("[name='uname']");
+                  if (uname.val()==""){
+                      uname.next().text("请输入用户名....");
+                      return false;
+                  }else{
+                      uname.next().text("");
+                  }
+                let upwd = $("[name='upwd']");
+                if (upwd.val()==""){
+                    upwd.next().text("请输入密码....");
+                    return false;
+                }else{
+                    upwd.next().text("");
+                }
+                    const fm = $(this).serialize();
+
+                  $.ajax({
+                    type: "post",
+                    url: "findBy",
+                    data: fm,
+                    dataType: "json",
+                    success: function (data) {
+                      if(data==1){
+                          alert("登录失败!用户名或密码错误,请重新输入....");
+                      }else if(data==2){
+                          alert("用户已在线登录,请注销后在登录.......");
+                      }else{
+                         window.location.href="getPage";
+                      }
+                    }
+                  })
+              });
+        })
+  </script>
+</head>
+<body>
+<div th:replace="~{test.html::/div#header}"></div>
+<div class="wrap" id="login">
+  <div class="main">
+    <div class="corner"></div>
+      <div class="introduce">
+        <h2>北大青鸟</h2>
+        <p>网上调查系统...</p>
+      </div>
+      <div class="login">
+        <h2>用户登录</h2>
+      <form id="myform" action="javascript:void(0)" method="post">
+        <dl id="loginbox">
+          <dt>用户名：</dt>
+          <dd><input name="uname" value="" class="input-text" type="text" /><span></span></dd>
+          <dt>密　码：</dt>
+          <dd><input name="upwd" value="" class="input-text" type="password"><span></span></dd>
+          <dt></dt>
+          <dd><input name="submit" class="input-button" type="submit" value="登录">
+            <a th:href="@{/regist}">新用户注册</a>
+          </dd>
+        </dl>
+      </form>
+    <div class="error" ></div>
+    </div>
+  </div>
+</div>
+<div class="wrap"></div>
+<div class="wrap" id="footer">	北大青鸟 © 版权所有 </div>
+</body>
+</html>

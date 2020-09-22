@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>投票列表</title>
+      <div th:replace="~{test.html::#css}"></div>
+  <div th:replace="~{test.html::#js}"></div>
+    <script>
+        $(function (){
+
+        })
+
+
+    </script>
+<body>
+     <div th:replace="~{test.html::/div#header}"></div>
+    <div class="wrap" id="navbar">
+        <div th:replace="~{test.html::/div.profile}"></div>
+        <div class="search">
+            <form  action="javascript:void(0)" method="post">
+                <input name="title" class="input-text"  value="" type="text">
+                <input  class="input-button" type="submit" value="搜索"/>
+            </form>
+        </div>
+    </div>
+<div class="wrap" id="vote">
+    <h2>投票列表</h2>
+    <div style="float: right;">
+        <a th:href="@{/findPage(pageIndex=1)}" >首页</a>
+        <a th:href="@{/findPage(pageIndex=${mp.getCurrent()-1==0?'1':mp.getCurrent()-1})}">上一页</a>
+        <a th:href="@{/findPage(pageIndex=${mp.getCurrent()+1>mp.getPages()? mp.getPages():mp.getCurrent()+1})}" >下一页</a>
+        <a th:href="@{/findPage(pageIndex=${mp.getPages()})}">末页</a>
+	 </div>
+    <br>
+    <ul class="list">
+      <li class="odd" th:each="r:${mp.getRecords()}">
+      <h4><a th:href="@{/findView(tid=${r.tid})}" th:text="${r.tname}"></a></h4>
+      <div class="join"><a th:href="@{/findVote(tid=${r.tid})}" >点我查看</a></div>
+          <p class="info">共有<span th:text="${r.oid}"></span>个选项，已有 <span th:text="${r.uid}"></span>个投票。</p>
+      </li>
+
+    </ul>
+</div>
+<div class="wrap" id="footer">	北大青鸟 © 版权所有 </div>
+</body>
+</html>

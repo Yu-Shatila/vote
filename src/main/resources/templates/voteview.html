@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+      <div th:replace="~{test.html::#css}"></div>
+</head>
+<body>
+    <div th:replace="~{test.html::/div#header}"></div>
+    <div class="wrap" id="navbar">
+         <div th:replace="~{test.html::/div.profile}"></div>
+    </div>
+<div class="wrap" id="vote">
+    <h2>查看投票</h2>
+    <ul class="list">
+      <li>
+        <h4 th:text="${mp.tname}">哪个浏览器好用</h4>
+        <p class="info">共有 <b th:text="${mp.oid}"></b> 个选项，已有 <b th:text="${mp.uid}"></b> 个投票。</p>
+        <ol>
+            <li th:each="r:${list}"><s th:text="${r.oname}"></s>
+            <div class="rate">
+            <div class="ratebg">
+            <div class="percent" th:style="'width:'+${#numbers.formatDecimal(r.uid*100.00/ (mp.uid==0 ? 1: mp.uid),0,'COMMA',2,'POINT')}+'%'"></div>
+            </div>
+              <p><b th:text="${r.uid}"></b>票
+              <span th:text="${#numbers.formatDecimal(r.uid*100.00/(mp.uid==0 ? 1: mp.uid),1,'COMMA',2,'POINT')}"></span>
+            </p>
+            </div>
+          </li>
+        </ol>
+  <div class="goback">
+    <a th:href="@{/getPage}">返回投票列表</a>
+  </div>
+  </li>
+</ul>
+</div>
+<div class="wrap" id="footer">	北大青鸟 © 版权所有 </div>
+</body>
+</html>

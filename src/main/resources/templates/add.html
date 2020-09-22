@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发布新投票</title>
+      <div th:replace="~{test.html::#css}"></div>
+        <div th:replace="~{test.html::#js}"></div>
+    <script type="text/javascript">
+        let isok = 1;
+        $(function () {
+
+        })
+        function addOption() {
+            const nods = $("#voteoptions");
+            const ops = $("<p><input name='oname'  class='input-text' type='text'>   <input type='button' style='color: #0066CC;border: none;background-color: transparent' value='删除' onclick='removeOption(this)' /></p> ");
+            if (isok > 6) {
+                return false;
+            }
+            nods.append(ops);
+            isok++;
+        }
+        function removeOption(ok) {
+            $(ok).parent().remove();
+            isok--;
+        }
+        function removeText() {
+
+        }
+    </script>
+</head>
+<body>
+<div th:replace="~{test.html::/div#header}"></div>
+<div class="wrap" id="navbar">
+<div th:replace="~{test.html::/div.profile}"></div>
+</div>
+<div class="box" id="voteManage">
+<h2>添加新投票</h2>
+    <div class="content">
+        <form  action="ticketSave" method="post">
+            <dl>
+                <dt>投票内容：</dt>
+                <dd>
+                    <input name="tname" class="input-text" id="title" type="text">
+                </dd>
+                <dt>投票类型：</dt>
+                <dd>
+                    <input name="tyid" type="radio" value="1">单选
+                    <input name="tyid" type="radio" value="2">多选
+                </dd>
+                <dt>投票选项：</dt>
+                <dd id="voteoptions">
+                    <p><input name="oname" class="input-text" type="text"></p>
+                    <p><input name="oname" class="input-text" type="text"></p>
+                </dd>
+                <dt></dt>
+                <dd class="button">
+                    <input type="image" src="images/button_submit.gif">
+                    <a onclick="addOption()" href="javascript:;">增加选项</a>
+                    <a onclick="removeText()" href="javascript:;">取消操作</a>
+                </dd>
+            </dl>
+        </form>
+    </div>
+</div>
+<div class="wrap" id="footer">	北大青鸟 © 版权所有 </div>
+</body>
+</html>

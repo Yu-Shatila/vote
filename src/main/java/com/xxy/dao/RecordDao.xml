@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace和dao接口全路径映射 -->
+<mapper namespace="com.xxy.dao.RecordDao">
+	<!--<resultMap id="ed" type="map">
+		<id column="uid" jdbcType="INTEGER" property="ucount"/>
+		<result column="tname"  jdbcType="VARCHAR" property="tname"></result>
+		<result column="oid"  jdbcType="INTEGER" property="ocount"></result>
+	</resultMap>
+
+	<select id="selecrRecord" resultMap="ed">
+		SELECT COUNT(u.uid) uid,t.tname tname,MAX(op.oid) oid FROM USER u, ticket t ,record r , (SELECT tname,COUNT(oid) oid FROM opse o,ticket t WHERE o.`tid`= t.`tid` GROUP BY tname) op WHERE u.uid=r.uid AND t.tid=r.tid  AND op.tname=t.tname GROUP BY tname
+	</select>-->
+
+</mapper>

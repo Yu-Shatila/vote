@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>参与投票</title>
+    <div th:replace="~{test.html::#css}"></div>
+  <div th:replace="~{test.html::#js}"></div>
+    <script>
+        $(function (){
+            $("#myform").submit(function () {
+                const yid = $("[name='yid']").val();
+                if(yid>0){
+                    alert("你已经在这投过票了...............");
+                    return false;
+                }
+                const fm = $(this).serialize();
+                $.ajax({
+                    type: "post",
+                    url: "voteSave",
+                    data:fm,
+                    dataType: "json",
+                    traditional:true,
+                    success: function (data) {
+                        if(data==1){
+                            alert("投票失败,请稍后重试....");
+                        }else{
+                            window.location.href="getPage";
+                        }
+                    }
+
+                })
+            });
+        })
+
+
+    </script>
+<body>
+    <div th:replace="~{test.html::/div#header}"></div>
+    <div class="wrap" id="navbar">
+        <div th:replace="~{test.html::/div.profile}"></div>
+    </div>
+    <div class="wrap" id="vote">
+        <h2>参与投票</h2>
+        <ul class="list">
+            <li>
+                <input name="yid" type="hidden"  th:value="${mp.li}">
+                <h4 th:text="${mp.tname}"></h4>
+                <p class="info">共有 <s th:text="${mp.oid}"></s>个选项，已有 <s th:text="${mp.uid}"></s> 个投票。</p>
+                <form id="myform" action="javascript:void(0)" method="post">
+                    <input name="tid" type="hidden" th:value="${mp.tid}">
+                    <input name="uid" type="hidden" th:value="${session.user.getUid()}">
+                    <ol>
+                        <li th:each="o:${mp.list}"><input name="oid" th:type="${mp.tyid==1?'radio':'checkbox'}" th:value="${o.oid}" th:text="${o.oname}"></li>
+                    </ol>
+                    <p class="voteview" ><input type="image"  th:src="@{/images/button_vote.gif}" />
+                        <a th:href="@{/findView(tid=${mp.tid})}">
+                             <img th:src="@{/images/button_view.gif}"/>
+                        </a>
+                    </p>
+                </form>
+            </li>
+        </ul>
+    </div>
+    <div class="wrap" id="footer">	北大青鸟 © 版权所有 </div>
+</body>
+</html>

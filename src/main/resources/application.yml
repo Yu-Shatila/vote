@@ -1,0 +1,50 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /vote
+
+#数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/xxy?serverTimezone=GMT
+    username: root
+    password: root
+
+mvc:
+  static-path-pattern: /**
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+
+    #模板配置
+thymeleaf:
+  #开发时关闭缓存,不然没法看到实时页面(要重启)
+  cache: false
+  #prefix: classpath:/templates/
+#suffix: .html
+
+#MyBatis配置
+mybatis:
+  #mapperLocations: classpath:com/xxy/dao/*.xml
+  type-aliases-package: com.xxy.pojo
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+
+# 打印sql
+logging:
+  level:
+    com.xxy.dao : debug
+
+
+#分页配置
+pagehelper:
+  reasonable: true
+  pageSizeZero: true
+
+mybatis-plus:
+  mapper-locations: classpath:com/xxy/dao/*.xml
