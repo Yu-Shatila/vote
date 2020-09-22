@@ -7,5 +7,6 @@ package com.xxy.pojo;
 public class hhhhh {
 
     private String hame;
+    private String hhhh;
 
 }
